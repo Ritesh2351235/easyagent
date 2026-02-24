@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Plus, Bot } from "lucide-react";
+import { AgentAvatar } from "@/components/ui/agent-avatar";
+import { ArrowLeft, Plus } from "lucide-react";
 
 interface ChatHeaderProps {
   agentName: string;
@@ -26,9 +27,7 @@ export function ChatHeader({
             <ArrowLeft className="h-4 w-4" />
           </Button>
         </Link>
-        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-bg-tertiary">
-          <Bot className="h-4 w-4 text-fg-secondary" />
-        </div>
+        <AgentAvatar agentId={agentId} size="sm" />
         <div>
           <h2 className="text-sm font-medium text-fg">{agentName}</h2>
           <div className="flex items-center gap-2">

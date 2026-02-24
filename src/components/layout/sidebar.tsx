@@ -179,7 +179,17 @@ export function Sidebar() {
             afterSignOutUrl="/"
             appearance={{
               elements: {
-                avatarBox: "h-8 w-8",
+                avatarBox: "h-8 w-8 ring-1 ring-border-hover",
+                userButtonPopoverCard:
+                  "bg-bg-secondary border border-border shadow-xl shadow-black/30",
+                userButtonPopoverActions: "bg-bg-secondary",
+                userButtonPopoverActionButton:
+                  "text-fg-secondary hover:text-fg hover:bg-bg-tertiary transition-colors",
+                userButtonPopoverActionButtonText: "text-sm",
+                userButtonPopoverActionButtonIcon: "text-fg-tertiary",
+                userButtonPopoverFooter: "hidden",
+                userPreviewMainIdentifier: "text-fg text-sm font-medium",
+                userPreviewSecondaryIdentifier: "text-fg-tertiary text-xs",
               },
             }}
           />

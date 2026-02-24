@@ -6,7 +6,8 @@ import { useSandboxStatus } from "@/hooks/use-sandbox-status";
 import { ChatHeader } from "./chat-header";
 import { ChatMessage } from "./chat-message";
 import { ChatInput } from "./chat-input";
-import { Bot, MessageSquare } from "lucide-react";
+import { MessageSquare } from "lucide-react";
+import { AgentAvatar } from "@/components/ui/agent-avatar";
 
 interface ChatInterfaceProps {
   agentId: string;
@@ -59,9 +60,7 @@ export function ChatInterface({
         <div className="mx-auto max-w-3xl">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-center">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-bg-secondary mb-4">
-                <Bot className="h-7 w-7 text-fg-tertiary" />
-              </div>
+              <AgentAvatar agentId={agentId} size="lg" className="mb-4" />
               <h3 className="text-lg font-medium text-fg mb-1">
                 Chat with {agentName}
               </h3>
@@ -78,6 +77,7 @@ export function ChatInterface({
                   role={msg.role}
                   content={msg.content}
                   streaming={msg.streaming}
+                  agentId={agentId}
                 />
               ))}
             </div>

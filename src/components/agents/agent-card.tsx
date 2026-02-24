@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { AgentStatusBadge } from "./agent-status-badge";
-import { Bot, MessageSquare, Wrench } from "lucide-react";
+import { AgentAvatar } from "@/components/ui/agent-avatar";
+import { MessageSquare, Wrench } from "lucide-react";
 import { formatDate, truncate } from "@/lib/utils";
 import type { AgentWithTools } from "@/types/agent";
 
@@ -20,9 +21,7 @@ export function AgentCard({ agent }: AgentCardProps) {
         <CardContent className="p-5">
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-bg-tertiary">
-                <Bot className="h-4 w-4 text-fg-secondary" />
-              </div>
+              <AgentAvatar agentId={agent.id} size="md" />
               <div>
                 <h3 className="font-medium text-fg group-hover:text-accent transition-colors">
                   {agent.name}

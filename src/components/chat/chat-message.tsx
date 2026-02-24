@@ -1,27 +1,28 @@
 import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
-import { Bot, User } from "lucide-react";
+import { User } from "lucide-react";
+import { AgentAvatar } from "@/components/ui/agent-avatar";
 import { StreamingIndicator } from "./streaming-indicator";
 
 interface ChatMessageProps {
   role: "USER" | "ASSISTANT";
   content: string;
   streaming?: boolean;
+  agentId?: string;
 }
 
-export function ChatMessage({ role, content, streaming }: ChatMessageProps) {
+export function ChatMessage({ role, content, streaming, agentId }: ChatMessageProps) {
   const isUser = role === "USER";
 
   return (
     <div className={cn("flex gap-3 py-4", isUser && "flex-row-reverse")}>
-      <div
-        className={cn(
-          "flex h-8 w-8 shrink-0 items-center justify-center rounded-md",
-          isUser ? "bg-fg text-bg" : "bg-bg-tertiary text-fg-secondary"
-        )}
-      >
-        {isUser ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
-      </div>
+      {isUser ? (
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-fg text-bg">
+          <User className="h-4 w-4" />
+        </div>
+      ) : (
+        <AgentAvatar agentId={agentId || "default"} size="sm" />
+      )}
       <div
         className={cn(
           "flex-1 space-y-2 overflow-hidden",
