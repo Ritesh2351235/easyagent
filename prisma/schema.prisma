@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  name      String?
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  agents Agent[]
+
+  @@index([clerkId])
+}
+
+enum AgentStatus {
+  IDLE
+  RUNNING
+  ERROR
+}
+
+model Agent {
+  id           String      @id @default(cuid())
+  name         String
+  description  String?
+  instructions String      @default("You are a helpful assistant.")
+  model        String      @default("gpt-4o-mini")
+  status       AgentStatus @default(IDLE)
+  userId       String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  user     User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mcpTools AgentMCPTool[]
+  sandbox  Sandbox?
+  sessions ChatSession[]
+
+  @@index([userId])
+}
+
+model AgentMCPTool {
+  id        String   @id @default(cuid())
+  toolName  String
+  enabled   Boolean  @default(true)
+  config    Json     @default("{}")
+  agentId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@unique([agentId, toolName])
+  @@index([agentId])
+}
+
+enum SandboxStatus {
+  STARTING
+  RUNNING
+  PAUSED
+  STOPPED
+  ERROR
+}
+
+model Sandbox {
+  id        String        @id @default(cuid())
+  e2bId     String        @unique
+  agentId   String        @unique
+  status    SandboxStatus @default(STARTING)
+  host      String?
+  port      Int           @default(8080)
+  lastActive DateTime     @default(now())
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@index([agentId])
+  @@index([status])
+}
+
+model ChatSession {
+  id        String   @id @default(cuid())
+  title     String   @default("New Chat")
+  agentId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  agent    Agent         @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  messages ChatMessage[]
+
+  @@index([agentId])
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+  TOOL
+}
+
+model ChatMessage {
+  id        String      @id @default(cuid())
+  role      MessageRole
+  content   String
+  sessionId String
+  createdAt DateTime    @default(now())
+
+  session ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([sessionId, createdAt])
+}
