@@ -1,13 +1,13 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, type Dispatch, type SetStateAction } from "react";
 import { usePathname } from "next/navigation";
 
 interface SidebarContextType {
   mobileOpen: boolean;
-  setMobileOpen: (open: boolean) => void;
+  setMobileOpen: Dispatch<SetStateAction<boolean>>;
   collapsed: boolean;
-  setCollapsed: (collapsed: boolean) => void;
+  setCollapsed: Dispatch<SetStateAction<boolean>>;
 }
 
 const SidebarContext = createContext<SidebarContextType>({

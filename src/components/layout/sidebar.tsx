@@ -72,7 +72,7 @@ export function Sidebar() {
 
           {/* Desktop collapse toggle */}
           <button
-            onClick={() => setCollapsed((c: boolean) => !c)}
+            onClick={() => setCollapsed((c) => !c)}
             className={cn(
               "hidden md:flex h-7 w-7 items-center justify-center rounded-md text-fg-secondary hover:text-fg hover:bg-bg-secondary transition-colors",
               collapsed && "hidden"
