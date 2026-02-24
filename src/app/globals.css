@@ -23,12 +23,30 @@
   border-color: var(--color-border);
 }
 
+html {
+  /* Use dynamic viewport height for proper mobile keyboard handling */
+  height: 100dvh;
+  /* Prevent overscroll bounce on iOS */
+  overscroll-behavior: none;
+}
+
 body {
   background-color: var(--color-bg);
   color: var(--color-fg);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent iOS text size adjust */
+  -webkit-text-size-adjust: 100%;
+  /* Safe area padding for notch devices */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
+}
+
+/* Prevent iOS zoom on input focus — font-size must be >= 16px */
+@supports (-webkit-touch-callout: none) {
+  input, textarea, select {
+    font-size: max(16px, 1em);
+  }
 }
 
 /* Scrollbar */

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
@@ -10,11 +9,11 @@ import {
   Plus,
   PanelLeftClose,
   PanelLeft,
-  Menu,
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/logo";
+import { useSidebar } from "./sidebar-context";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -23,37 +22,10 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  // Close mobile sidebar on route change
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
-
-  // Lock body scroll when mobile sidebar is open
-  useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileOpen]);
+  const { mobileOpen, setMobileOpen, collapsed, setCollapsed } = useSidebar();
 
   return (
     <>
-      {/* Mobile hamburger trigger */}
-      <button
-        onClick={() => setMobileOpen(true)}
-        className="fixed top-3.5 left-3.5 z-40 flex h-9 w-9 items-center justify-center rounded-md bg-bg-secondary border border-border text-fg-secondary hover:text-fg transition-colors md:hidden"
-        aria-label="Open menu"
-      >
-        <Menu className="h-4 w-4" />
-      </button>
-
       {/* Mobile overlay */}
       {mobileOpen && (
         <div
@@ -65,20 +37,20 @@ export function Sidebar() {
       {/* Sidebar */}
       <aside
         className={cn(
-          "flex h-screen flex-col border-r border-border bg-bg transition-all duration-200 ease-in-out",
-          // Desktop
+          "flex h-dvh flex-col border-r border-border bg-bg transition-all duration-200 ease-in-out",
+          // Mobile: fixed overlay drawer
           "max-md:fixed max-md:inset-y-0 max-md:left-0 max-md:z-50 max-md:shadow-2xl",
           collapsed ? "md:w-[60px]" : "md:w-60",
           // Mobile: slide in/out
           mobileOpen
-            ? "max-md:translate-x-0 max-md:w-64"
-            : "max-md:-translate-x-full max-md:w-64"
+            ? "max-md:translate-x-0 max-md:w-[280px]"
+            : "max-md:-translate-x-full max-md:w-[280px]"
         )}
       >
         {/* Header */}
         <div
           className={cn(
-            "flex items-center border-b border-border",
+            "flex items-center border-b border-border shrink-0",
             collapsed ? "justify-center px-2 py-4" : "justify-between px-4 py-4"
           )}
         >
@@ -100,7 +72,7 @@ export function Sidebar() {
 
           {/* Desktop collapse toggle */}
           <button
-            onClick={() => setCollapsed((c) => !c)}
+            onClick={() => setCollapsed((c: boolean) => !c)}
             className={cn(
               "hidden md:flex h-7 w-7 items-center justify-center rounded-md text-fg-secondary hover:text-fg hover:bg-bg-secondary transition-colors",
               collapsed && "hidden"
@@ -168,10 +140,10 @@ export function Sidebar() {
           </Link>
         </div>
 
-        {/* User section */}
+        {/* User section — safe area padding for iOS bottom bar */}
         <div
           className={cn(
-            "flex items-center border-t border-border",
+            "flex items-center border-t border-border pb-[env(safe-area-inset-bottom)]",
             collapsed ? "justify-center px-2 py-3" : "gap-3 px-4 py-3"
           )}
         >

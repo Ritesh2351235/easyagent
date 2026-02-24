@@ -6,7 +6,6 @@ import { useSandboxStatus } from "@/hooks/use-sandbox-status";
 import { ChatHeader } from "./chat-header";
 import { ChatMessage } from "./chat-message";
 import { ChatInput } from "./chat-input";
-import { MessageSquare } from "lucide-react";
 import { AgentAvatar } from "@/components/ui/agent-avatar";
 
 interface ChatInterfaceProps {
@@ -47,6 +46,21 @@ export function ChatInterface({
     }
   }, [messages]);
 
+  // Handle mobile keyboard — scroll to bottom when visualViewport resizes
+  useEffect(() => {
+    const viewport = window.visualViewport;
+    if (!viewport) return;
+
+    const onResize = () => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      }
+    };
+
+    viewport.addEventListener("resize", onResize);
+    return () => viewport.removeEventListener("resize", onResize);
+  }, []);
+
   return (
     <div className="flex h-full flex-col">
       <ChatHeader
@@ -56,7 +70,7 @@ export function ChatInterface({
         onNewChat={clearMessages}
       />
 
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-4">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto overscroll-contain px-4">
         <div className="mx-auto max-w-3xl">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-center">
@@ -64,7 +78,7 @@ export function ChatInterface({
               <h3 className="text-lg font-medium text-fg mb-1">
                 Chat with {agentName}
               </h3>
-              <p className="text-sm text-fg-secondary max-w-sm">
+              <p className="text-sm text-fg-secondary max-w-sm px-4">
                 Send a message to start a conversation. The agent will run in an
                 isolated cloud sandbox.
               </p>

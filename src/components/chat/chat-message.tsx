@@ -15,7 +15,7 @@ export function ChatMessage({ role, content, streaming, agentId }: ChatMessagePr
   const isUser = role === "USER";
 
   return (
-    <div className={cn("flex gap-3 py-4", isUser && "flex-row-reverse")}>
+    <div className={cn("flex gap-2 sm:gap-3 py-3 sm:py-4", isUser && "flex-row-reverse")}>
       {isUser ? (
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-fg text-bg">
           <User className="h-4 w-4" />
@@ -31,7 +31,7 @@ export function ChatMessage({ role, content, streaming, agentId }: ChatMessagePr
       >
         <div
           className={cn(
-            "inline-block rounded-lg px-4 py-2.5 text-sm max-w-[85%]",
+            "inline-block rounded-2xl px-3.5 py-2.5 text-sm max-w-[90%] sm:max-w-[85%] sm:px-4",
             isUser
               ? "bg-fg text-bg"
               : "bg-bg-secondary border border-border text-fg"

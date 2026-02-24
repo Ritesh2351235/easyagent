@@ -20,26 +20,24 @@ export function ChatHeader({
   onNewChat,
 }: ChatHeaderProps) {
   return (
-    <div className="flex items-center justify-between border-b border-border px-4 py-3">
-      <div className="flex items-center gap-3">
+    <div className="flex items-center justify-between border-b border-border px-3 py-2.5 sm:px-4 sm:py-3 shrink-0">
+      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
         <Link href={`/agents/${agentId}`}>
-          <Button variant="ghost" size="icon" className="h-8 w-8">
+          <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0">
             <ArrowLeft className="h-4 w-4" />
           </Button>
         </Link>
         <AgentAvatar agentId={agentId} size="sm" />
-        <div>
-          <h2 className="text-sm font-medium text-fg">{agentName}</h2>
-          <div className="flex items-center gap-2">
-            <Badge variant={sandboxRunning ? "success" : "default"}>
-              {sandboxRunning ? "Online" : "Offline"}
-            </Badge>
-          </div>
+        <div className="min-w-0">
+          <h2 className="text-sm font-medium text-fg truncate">{agentName}</h2>
+          <Badge variant={sandboxRunning ? "success" : "default"} className="mt-0.5">
+            {sandboxRunning ? "Online" : "Offline"}
+          </Badge>
         </div>
       </div>
-      <Button variant="ghost" size="sm" onClick={onNewChat}>
+      <Button variant="ghost" size="sm" onClick={onNewChat} className="shrink-0">
         <Plus className="h-3.5 w-3.5" />
-        New Chat
+        <span className="hidden sm:inline">New Chat</span>
       </Button>
     </div>
   );
