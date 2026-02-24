@@ -126,7 +126,7 @@ export function AgentDetailClient({ agent: initialAgent }: AgentDetailClientProp
   return (
     <div>
       <Header title={agent.name}>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <AgentStatusBadge status={agent.status} />
           {agent.status === "RUNNING" || agent.sandbox?.status === "RUNNING" ? (
             <Button
@@ -158,7 +158,7 @@ export function AgentDetailClient({ agent: initialAgent }: AgentDetailClientProp
         </div>
       </Header>
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">

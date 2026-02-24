@@ -21,7 +21,7 @@ export default async function ChatPage({
   if (!agent || agent.userId !== user.id) notFound();
 
   return (
-    <div className="h-full -m-6">
+    <div className="h-full -m-4 -mt-14 md:-m-6 md:-mt-6">
       <ChatInterface
         agentId={agent.id}
         agentName={agent.name}

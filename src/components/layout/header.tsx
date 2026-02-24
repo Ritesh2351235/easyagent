@@ -9,14 +9,14 @@ interface HeaderProps {
 
 export function Header({ title, description, children, className }: HeaderProps) {
   return (
-    <div className={cn("flex items-center justify-between pb-6", className)}>
-      <div>
-        <h1 className="text-2xl font-semibold text-fg">{title}</h1>
+    <div className={cn("flex flex-col gap-3 pb-6 sm:flex-row sm:items-center sm:justify-between", className)}>
+      <div className="min-w-0">
+        <h1 className="text-xl font-semibold text-fg sm:text-2xl truncate">{title}</h1>
         {description && (
           <p className="mt-1 text-sm text-fg-secondary">{description}</p>
         )}
       </div>
-      {children && <div className="flex items-center gap-3">{children}</div>}
+      {children && <div className="flex items-center gap-3 shrink-0">{children}</div>}
     </div>
   );
 }

@@ -92,7 +92,7 @@ export function AgentForm({ agent, mode }: AgentFormProps) {
 
       <div className="space-y-1.5">
         <label className="text-sm font-medium text-fg-secondary">Model</label>
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row">
           {AVAILABLE_MODELS.map((m) => (
             <button
               key={m.id}

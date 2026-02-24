@@ -50,6 +50,13 @@ body {
   background: var(--color-fg-tertiary);
 }
 
+/* Mobile sidebar transitions */
+@media (max-width: 767px) {
+  aside {
+    transition: transform 0.2s ease-in-out;
+  }
+}
+
 /* Clerk overrides */
 .cl-card {
   background-color: var(--color-bg-secondary) !important;

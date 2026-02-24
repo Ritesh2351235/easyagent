@@ -10,7 +10,9 @@ export default function DashboardLayout({
     <ToastProvider>
       <div className="flex h-screen">
         <Sidebar />
-        <main className="flex-1 overflow-y-auto bg-bg p-6">{children}</main>
+        <main className="flex-1 overflow-y-auto bg-bg p-4 pt-14 md:p-6 md:pt-6">
+          {children}
+        </main>
       </div>
     </ToastProvider>
   );

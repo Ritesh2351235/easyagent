@@ -32,7 +32,7 @@ function Dialog({ open, onOpenChange, children }: DialogProps) {
       }}
     >
       <div className="fixed inset-0 bg-black/60" />
-      <div className="relative z-10 w-full max-w-lg">{children}</div>
+      <div className="relative z-10 w-full max-w-lg px-4 sm:px-0">{children}</div>
     </div>
   );
 }
