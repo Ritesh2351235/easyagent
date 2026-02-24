@@ -62,3 +62,25 @@ body {
   background-color: var(--color-bg-secondary) !important;
   border: 1px solid var(--color-border) !important;
 }
+
+/* Auth page Clerk overrides */
+.clerk-auth-card .cl-card,
+.clerk-auth-card .cl-cardBox {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.clerk-auth-card .cl-internal-b3fm6y {
+  display: none !important;
+}
+
+.clerk-auth-card .cl-footer {
+  display: none !important;
+}
+
+/* Orange focus ring for Clerk inputs on auth pages */
+.clerk-auth-card input:focus {
+  border-color: #ff6b2b !important;
+  box-shadow: 0 0 0 2px rgba(255, 107, 43, 0.15) !important;
+}

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
 import {
-  Bot,
   LayoutDashboard,
   Settings,
   Plus,
@@ -15,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/ui/logo";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -83,7 +83,7 @@ export function Sidebar() {
           )}
         >
           <Link href="/dashboard" className="flex items-center gap-2 min-w-0">
-            <Bot className="h-5 w-5 shrink-0 text-fg" />
+            <Logo size="sm" />
             {!collapsed && (
               <span className="font-semibold text-fg truncate">AgentForge</span>
             )}

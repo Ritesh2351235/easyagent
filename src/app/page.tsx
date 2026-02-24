@@ -2,17 +2,16 @@ import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import {
-  Bot,
   Cpu,
   Shield,
   Zap,
   ArrowRight,
   Terminal,
   GitBranch,
-  Database,
   Lock,
   ChevronRight,
 } from "lucide-react";
+import { Logo } from "@/components/ui/logo";
 
 export default async function LandingPage() {
   const { userId } = await auth();
@@ -45,14 +44,12 @@ export default async function LandingPage() {
 
       {/* Nav */}
       <nav className="relative z-10 flex items-center justify-between px-6 py-5 max-w-6xl mx-auto">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-fg">
-            <Bot className="h-4 w-4 text-bg" />
-          </div>
+        <Link href="/" className="flex items-center gap-2.5">
+          <Logo size="sm" />
           <span className="text-lg font-semibold text-fg tracking-tight">
             AgentForge
           </span>
-        </div>
+        </Link>
         <div className="flex items-center gap-3">
           <Link
             href="/sign-in"
@@ -255,9 +252,7 @@ export default async function LandingPage() {
       <footer className="relative z-10 border-t border-border px-6 py-6">
         <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-fg">
-              <Bot className="h-3 w-3 text-bg" />
-            </div>
+            <Logo size="sm" />
             <span className="text-sm text-fg-tertiary">AgentForge</span>
           </div>
           <span className="text-xs text-fg-tertiary/60">
